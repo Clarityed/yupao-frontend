@@ -24,6 +24,8 @@
       </template>
       <template #footer>
         <van-button size="small" type="primary" plain @click="doJoinTeam(team.id)">加入队伍</van-button>
+        <van-button v-if="team.createUser.id === currentUser?.id" size="small"  plain
+                    @click="doUpdateTeam(team.id)">更新队伍</van-button>
       </template>
     </van-card>
   </div>
@@ -32,9 +34,13 @@
 <script setup lang="ts">
 import defaultAvatar from "../assets/keqing_WebStormB.jpeg";
 import {TeamType} from "../models/team";
-import {teamStatusEnum} from "../constants/team"
+import { teamStatusEnum } from "../constants/team"
 import myAxios from "../plugins/MyAxios";
 import {Toast} from "vant";
+import {onMounted, ref} from "vue";
+import {getCurrentUser} from "../services/user";
+import {useRouter} from "vue-router";
+const router = useRouter();
 
 interface TeamCardListProps {
   teamList: TeamType[]
@@ -55,6 +61,22 @@ const doJoinTeam = async (id: number) => {
   } else {
     Toast.fail('加入失败' + (res.description ? `，${res.description}` : ``));
   }
+}
+
+// 获取当前登录用户，用于判断是否可以更新队伍信息
+const currentUser = ref();
+onMounted(async () => {
+  currentUser.value = await getCurrentUser();
+})
+
+// 更新按钮实现带参数跳转
+const doUpdateTeam = async (id: number) => {
+  router.push({
+    path: '/team/update',
+    query: {
+      id
+    }
+  })
 }
 
 </script>
