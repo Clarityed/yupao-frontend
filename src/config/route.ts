@@ -4,6 +4,9 @@
 import Index from "../pages/Index.vue";
 import TeamPage from "../pages/TeamPage.vue";
 import UserPage from "../pages/UserPage.vue";
+import UserUpdatePage from "../pages/UserUpdatePage.vue";
+import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
+import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import SearchPage from "../pages/SearchPage.vue";
 import UserEditPage from "../pages/UserEditPage.vue";
 import SearchResultPage from "../pages/SearchResultPage.vue";
@@ -21,7 +24,10 @@ const routes = [
     { path: '/search', component: SearchPage },
     { path: '/user/edit', component: UserEditPage },
     { path: '/user/list', component: SearchResultPage },
-    { path: '/user/login', component: UserLoginPage }
+    { path: '/user/login', component: UserLoginPage },
+    { path: '/user/update', component: UserUpdatePage },
+    { path: '/user/team/create', component: UserTeamCreatePage },
+    { path: '/user/team/join', component: UserTeamJoinPage }
 ]
 
 export default routes;

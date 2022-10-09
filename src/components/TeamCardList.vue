@@ -23,9 +23,14 @@
         </div>
       </template>
       <template #footer>
-        <van-button size="small" type="primary" plain @click="doJoinTeam(team.id)">加入队伍</van-button>
-        <van-button v-if="team.createUser.id === currentUser?.id" size="small"  plain
+        <van-button size="mini" type="primary" plain @click="doJoinTeam(team.id)">加入队伍</van-button>
+        <van-button v-if="team.createUser.id === currentUser?.id" size="mini"  plain
                     @click="doUpdateTeam(team.id)">更新队伍</van-button>
+        <!-- todo 仅可以看见自己加入的队伍的退出按钮 -->
+        <van-button size="mini"  plain
+                    @click="doQuitTeam(team.id)">退出队伍</van-button>
+        <van-button v-if="team.createUser.id === currentUser?.id" size="mini"  plain
+                    @click="doDeleteTeam(team.id)">解散队伍</van-button>
       </template>
     </van-card>
   </div>
@@ -77,6 +82,36 @@ const doUpdateTeam = async (id: number) => {
       id
     }
   })
+}
+
+/**
+ * 退出队伍
+ * @param id
+ */
+const doQuitTeam = async (id: number) => {
+  const res = await myAxios.post('/team/quit', {
+    teamId: id
+  });
+  if (res.code === 0) {
+    Toast.success('操作成功');
+  } else {
+    Toast.fail('操作失败');
+  }
+}
+
+/**
+ * 解散队伍
+ * @param id
+ */
+const doDeleteTeam = async (id: number) => {
+  const res = await myAxios.post('/team/delete', {
+    teamId: id
+  });
+  if (res.code === 0) {
+    Toast.success('操作成功');
+  } else {
+    Toast.fail('操作失败');
+  }
 }
 
 </script>
