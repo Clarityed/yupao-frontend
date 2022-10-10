@@ -23,13 +23,13 @@
         </div>
       </template>
       <template #footer>
-        <van-button size="mini" type="primary" plain @click="doJoinTeam(team.id)">加入队伍</van-button>
+        <van-button size="mini" type="primary" v-if="team.createUser.id !== currentUser?.id && !team.hasJoin" plain
+                    @click="doJoinTeam(team.id)">加入队伍</van-button>
         <van-button v-if="team.createUser.id === currentUser?.id" size="mini"  plain
                     @click="doUpdateTeam(team.id)">更新队伍</van-button>
-        <!-- todo 仅可以看见自己加入的队伍的退出按钮 -->
-        <van-button size="mini"  plain
+        <van-button size="mini" v-if="team.hasJoin" plain
                     @click="doQuitTeam(team.id)">退出队伍</van-button>
-        <van-button v-if="team.createUser.id === currentUser?.id" size="mini"  plain
+        <van-button v-if="team.createUser.id === currentUser?.id" size="mini" type="danger"  plain
                     @click="doDeleteTeam(team.id)">解散队伍</van-button>
       </template>
     </van-card>
