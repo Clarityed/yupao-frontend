@@ -19,7 +19,7 @@ import {UserType} from "../models/user";
 // 用于判断现在处于什么模式的参数
 const isMatchMode = ref<boolean>(false)
 
-const userList = ref([]);
+const userList = ref([{},{},{},{},{}]);
 // 判断是否显示骨架屏
 const loading = ref(false);
 
