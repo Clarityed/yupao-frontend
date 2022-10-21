@@ -19,6 +19,12 @@ myAxios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 myAxios.interceptors.response.use(function (response) {
     console.log('我收到你的响应啦', response)
+    if (response?.data?.code === 40100) {
+        // 获取当前页面的地址
+        const redirectUrl = window.location.href;
+        // 拼接到登录成功后即将跳转的地址后面，``这一对符号是模板字符串
+        window.location.href = `/user/login?redirect=${redirectUrl}`;
+    }
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
     // 响应返回出来的是数据，我们只关注业务层
