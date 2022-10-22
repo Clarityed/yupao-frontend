@@ -14,5 +14,6 @@ export type TeamType = {
     createTime: Date;
     updateTime: Date;
     createUser: UserType;
-    hasJoin: boolean;
+    hasJoin?: boolean;
+    hasJoinNumber?: number;
 };
