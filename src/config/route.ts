@@ -13,6 +13,7 @@ import SearchResultPage from "../pages/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/TeamAddPage.vue";
 import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
+import InputTeamPwdPage from "../pages/InputTeamPwdPage.vue";
 
 
 const routes = [
@@ -27,7 +28,8 @@ const routes = [
     { path: '/user/login', title: "登录", component: UserLoginPage },
     { path: '/user/update', title: "更新信息", component: UserUpdatePage },
     { path: '/user/team/create', title: "我创建的队伍", component: UserTeamCreatePage },
-    { path: '/user/team/join', title: "我加入的队伍", component: UserTeamJoinPage }
+    { path: '/user/team/join', title: "我加入的队伍", component: UserTeamJoinPage },
+    { path: '/user/team/join/password', title: "队伍密码", component: InputTeamPwdPage }
 ]
 
 export default routes;

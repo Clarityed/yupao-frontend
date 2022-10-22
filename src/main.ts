@@ -7,6 +7,7 @@ import 'vant/lib/index.css';
 import routes from "./config/route";
 // 2. 引入组件样式
 import 'vant/lib/index.css';
+import '../global.css';
 
 const app = createApp(App);
 // 3. 注册你需要的组件

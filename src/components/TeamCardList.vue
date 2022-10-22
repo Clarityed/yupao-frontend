@@ -24,7 +24,7 @@
       </template>
       <template #footer>
         <van-button size="mini" type="primary" v-if="team.createUser.id !== currentUser?.id && !team.hasJoin" plain
-                    @click="doJoinTeam(team.id)">加入队伍</van-button>
+                    @click="doJoinTeam(team.id, team.status)">加入队伍</van-button>
         <van-button v-if="team.createUser.id === currentUser?.id" size="mini"  plain
                     @click="doUpdateTeam(team.id)">更新队伍</van-button>
         <van-button size="mini" v-if="team.hasJoin" plain
@@ -33,6 +33,10 @@
                     @click="doDeleteTeam(team.id)">解散队伍</van-button>
       </template>
     </van-card>
+    <!-- 这个弹窗方法实现问题 -->
+<!--    <van-dialog v-model:show="showPasswordDialog" title="请输入密码" show-cancel-button>
+      <van-field v-model="password" placeholder="请输入密码" />
+    </van-dialog>-->
   </div>
 </template>
 
@@ -41,11 +45,14 @@ import defaultAvatar from "../assets/keqing_WebStormB.jpeg";
 import {TeamType} from "../models/team";
 import { teamStatusEnum } from "../constants/team"
 import myAxios from "../plugins/MyAxios";
-import {Toast} from "vant";
+import { Toast } from "vant";
 import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../services/user";
 import {useRouter} from "vue-router";
 const router = useRouter();
+
+/*const showPasswordDialog = ref(false);
+const password = ref('');*/
 
 interface TeamCardListProps {
   teamList: TeamType[]
@@ -57,10 +64,26 @@ const props = withDefaults(defineProps<TeamCardListProps>(), {
   teamList: [] as TeamType[],
 })
 
-const doJoinTeam = async (id: number) => {
+/**
+ * 加入队伍
+ * @param id
+ */
+const doJoinTeam = async (id: number, status: number) => {
+  // showPasswordDialog.value = true;
+  // 加入加密队伍实现带参数跳转
+  if (status === 2) {
+    router.push({
+      path: '/user/team/join/password',
+      query: {
+        id
+      }
+    })
+    Toast.success('请输入队伍密码');
+    return;
+  }
   const res = await myAxios.post('/team/join', {
     teamId: id
-  })
+  });
   if (res?.code === 0) {
     Toast.success('加入成功');
   } else {
